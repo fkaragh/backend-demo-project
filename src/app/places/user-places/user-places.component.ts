@@ -4,6 +4,7 @@ import { PlacesContainerComponent } from '../places-container/places-container.c
 import { PlacesComponent } from '../places.component';
 
 import { PlacesService } from '../places.service';
+import { Place } from '../place.model';
 
 @Component({
   selector: 'app-user-places',
@@ -39,4 +40,11 @@ export class UserPlacesComponent {
     });
   }
   
+  onRemovePlace(place: Place){
+    const subscription = this.placesService.removeUserPlace(place).subscribe();
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
 }
